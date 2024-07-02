@@ -1,0 +1,111 @@
+#include "macro/init.C"
+
+const TString infileroot="~/spectra.root";
+const TString infileroot2="~/spectra_fit.root";
+
+void draw_kamano_data2(){
+  const double kpThre=kpMass+pMass;
+  init();
+  TLine line;
+  line.SetLineColor(3);
+  line.SetLineWidth(3);
+
+  TFile *f=new TFile(infileroot);
+  TFile *f2=new TFile(infileroot2);
+  TDirectory *dirA=(TDirectory*)f2->Get("fit_model_A_fix_Phi");
+  TDirectory *dirB=(TDirectory*)f2->Get("fit_model_B_fix_Phi");
+
+  TGraphErrors *data_pimSp=(TGraphErrors*)f->Get("pimSp_CS0");
+  TGraph *pimSp_modelA=(TGraph*)dirA->Get("gra_pimSp");
+  TGraph *pimSp_modelB=(TGraph*)dirB->Get("gra_pimSp");
+  data_pimSp-> SetLineWidth(3);
+  data_pimSp-> SetMarkerStyle(8);
+  data_pimSp-> SetMarkerColor(kRed);
+  data_pimSp-> SetMarkerSize(1.2);
+  data_pimSp-> GetXaxis()-> SetRangeUser(1.35, 1.5);
+  data_pimSp-> GetYaxis()-> SetRangeUser(0., 30.);
+  data_pimSp-> SetLineColor(kRed);
+  pimSp_modelA-> GetYaxis()-> SetRangeUser(0, 30);
+  // pimSp_modelA-> SetLineColor(kRed);
+  // pimSp_modelB-> SetLineColor(kBlue);
+  pimSp_modelA-> SetLineStyle(9);
+  pimSp_modelB-> SetLineStyle(1);
+  pimSp_modelA-> SetLineWidth(3);
+  pimSp_modelB-> SetLineWidth(3);
+  data_pimSp-> Draw("AP");
+  pimSp_modelA-> Draw("PL");
+  pimSp_modelB-> Draw("PL");
+  data_pimSp-> Draw("P");
+  line.DrawLine(kpThre, 0., kpThre, 30);
+  TLegend *leg=new TLegend(0.2, 0.6, 0.5, 0.95);
+  leg-> SetFillStyle(0);
+  leg-> SetBorderSize(0);
+  leg-> AddEntry(data_pimSp, "Data", "elp");
+  leg-> AddEntry(pimSp_modelA, "Model.A", "lp");
+  leg-> AddEntry(pimSp_modelB, "Model.B", "lp");
+  leg-> Draw();
+  c1-> Print("~/ag_Run78/pic/JPS_2022/DCC_pimSp_wData_fitScale.eps");
+
+  TGraphErrors *data_pipSm=(TGraphErrors*)f->Get("pipSm_CS0");
+  TGraph *pipSm_modelA=(TGraph*)dirA->Get("gra_pipSm");
+  TGraph *pipSm_modelB=(TGraph*)dirB->Get("gra_pipSm");
+  data_pipSm-> SetLineWidth(3);
+  data_pipSm-> SetMarkerStyle(8);
+  data_pipSm-> SetMarkerColor(kBlue);
+  data_pipSm-> SetMarkerSize(1.2);
+  data_pipSm-> GetXaxis()-> SetRangeUser(1.35, 1.5);
+  data_pipSm-> GetYaxis()-> SetRangeUser(0., 30.);
+  data_pipSm-> SetLineColor(kBlue);
+  pipSm_modelA-> GetYaxis()-> SetRangeUser(0, 30);
+  // pipSm_modelA-> SetLineColor(kBlue);
+  // pipSm_modelB-> SetLineColor(kBlue);
+  pipSm_modelA-> SetLineStyle(9);
+  pipSm_modelB-> SetLineStyle(1);
+  pipSm_modelA-> SetLineWidth(3);
+  pipSm_modelB-> SetLineWidth(3);
+  data_pipSm-> Draw("AP");
+  pipSm_modelA-> Draw("PL");
+  pipSm_modelB-> Draw("PL");
+  data_pipSm-> Draw("P");
+  line.DrawLine(kpThre, 0., kpThre, 30);
+  TLegend *leg=new TLegend(0.2, 0.6, 0.5, 0.95);
+  leg-> SetFillStyle(0);
+  leg-> SetBorderSize(0);
+  leg-> AddEntry(data_pipSm, "Data", "elp");
+  leg-> AddEntry(pipSm_modelA, "Model.A", "lp");
+  leg-> AddEntry(pipSm_modelB, "Model.B", "lp");
+  leg-> Draw();
+  c1-> Print("~/ag_Run78/pic/JPS_2022/DCC_pipSm_wData_fitScale.eps");
+
+  TGraphErrors *data_pimS0=(TGraphErrors*)f->Get("pimS0_CS0");
+  TGraph *pimS0_modelA=(TGraph*)dirA->Get("gra_pimS0");
+  TGraph *pimS0_modelB=(TGraph*)dirB->Get("gra_pimS0");
+  data_pimS0-> SetLineWidth(3);
+  data_pimS0-> SetMarkerStyle(8);
+  data_pimS0-> SetMarkerColor(3);
+  data_pimS0-> SetMarkerSize(1.2);
+  data_pimS0-> GetXaxis()-> SetRangeUser(1.35, 1.5);
+  data_pimS0-> GetYaxis()-> SetRangeUser(0., 30.);
+  data_pimS0-> SetLineColor(3);
+  pimS0_modelA-> GetYaxis()-> SetRangeUser(0, 30);
+  // pimS0_modelA-> SetLineColor(3);
+  // pimS0_modelB-> SetLineColor(kBlue);
+  pimS0_modelA-> SetLineStyle(9);
+  pimS0_modelB-> SetLineStyle(1);
+  pimS0_modelA-> SetLineWidth(3);
+  pimS0_modelB-> SetLineWidth(3);
+  data_pimS0-> Draw("AP");
+  pimS0_modelA-> Draw("PL");
+  pimS0_modelB-> Draw("PL");
+  data_pimS0-> Draw("P");
+  line.DrawLine(kpThre, 0., kpThre, 30);
+  TLegend *leg=new TLegend(0.2, 0.6, 0.5, 0.95);
+  leg-> SetFillStyle(0);
+  leg-> SetBorderSize(0);
+  leg-> AddEntry(data_pimS0, "Data", "elp");
+  leg-> AddEntry(pimS0_modelA, "Model.A", "lp");
+  leg-> AddEntry(pimS0_modelB, "Model.B", "lp");
+  leg-> Draw();
+  c1-> Print("~/ag_Run78/pic/JPS_2022/DCC_pimS0_wData_fitScale.eps");
+
+}
