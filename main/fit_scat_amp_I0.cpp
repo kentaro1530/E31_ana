@@ -16,7 +16,7 @@ TGraph *responseFunc;
 TGraph *gra_data;
 double init_par[5]  = { 0.04, -1.00, 0.80, -0.2, -0.40 }; 
 
-void fit(bool renew_param=false);
+void fit();
 void fcn(Int_t &npar, Double_t *gin, Double_t &chi2, Double_t *par, Int_t iflag);
 void get_chi2_ndf(Double_t &chi2, Int_t &ndf, const Double_t *par);
 void save();
@@ -57,9 +57,6 @@ void mkdir(TFile *of, TString name){
 }
 
 void save(double chi2, int ndf, double par[5], double err[5]){
-  TNtuple *tup=new TNtuple("fit_params", "", "chi2:NDF:scale:scale_err:A_I0_re:A_I0_re_err:A_I0_im:A_I0_im_err:R_I0_re:R_I0_re_err:R_I0_im:R_I0_im_err");
-  tup-> Fill(chi2, ndf, par[0], err[0], par[1], err[1], par[2], err[2], par[3], err[3], par[4], err[4]);
-
   std::vector<double> mass0, fit_pimS0;
   for( double i=0; i<responseFunc->GetN(); i++ ){
     double x, y;
@@ -104,9 +101,12 @@ void save(double chi2, int ndf, double par[5], double err[5]){
   util::TMatrix::getPoleWidth(KN_piS_T, err[1]/Const_GeVFM, err[2]/Const_GeVFM, err[3]/Const_GeVFM, err[4]/Const_GeVFM, pole, pole_min, pole_max, width, width_min, width_max);
   gras[0]-> Write("gra_I0_KN_KN_re_wErr");
   gras[1]-> Write("gra_I0_KN_KN_im_wErr");
+
+  TNtuple *tup=new TNtuple("fit_params", "", "chi2:NDF:scale:scale_err:A_I0_re:A_I0_re_err:A_I0_im:A_I0_im_err:R_I0_re:R_I0_re_err:R_I0_im:R_I0_im_err:Pole:Width");
+  tup-> Fill(chi2, ndf, par[0], err[0], par[1], err[1], par[2], err[2], par[3], err[3], par[4], err[4], pole, width);
 }
 
-void fit(bool renew_param){
+void fit(){
   TMinuit* minuit=new TMinuit(5);
   minuit-> SetPrintLevel(PRINT_LEVEL);
   TString name[5] = { "scale", "A_re", "A_im", "R_re", "R_im" };
@@ -143,7 +143,7 @@ void fit(bool renew_param){
   ndf-=5;
   save(chi2, ndf, par, err);
 
-  if( renew_param ) for( int i=0; i<5; i++ ) init_par[i]=par[i];
+  //  for( int i=0; i<5; i++ ) init_par[i]=par[i];
   delete minuit;
 }
 

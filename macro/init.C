@@ -20,9 +20,18 @@ void init(){
   double gray=150./255.;
   gROOT-> GetColor(kGray)-> SetRGB(gray, gray, gray);
 
-
   gStyle-> SetTitleH(0.11);
   setMargin(0.01, 0.15, 0.15, 0.1);
+
+  Double_t doubleGauss(Double_t *x, Double_t *par){
+    if( x[0]<par[1] ) return par[0]*std::exp(-(x[0]-par[1])*(x[0]-par[1])/(4*par[2]*par[2]));
+    else  return par[0]*std::exp(-(x[0]-par[1])*(x[0]-par[1])/(4*par[3]*par[3]));
+  }
+  TF1* func=new TF1("double_gaus", doubleGauss, -1.0, 2.0, 4);
+  func-> SetParameter(0, 1000);
+  func-> SetParameter(1, 0.5);
+  func-> SetParameter(2, 0.1);
+  func-> SetParameter(3, 0.5);
 }
 
 TGraph* scale(TGraph *gra, double val){
@@ -51,8 +60,9 @@ void setBottomMargin(double val){ gStyle-> SetPadBottomMargin(val); }
 
 void setMargin(){ setMargin(0.15, 0.1, 0.15, 0.01); }
 
-TH1F* set(TH1F* obj){
-  cout<<obj<<endl;
+TH1F* set(TH1F* obj, int colorID=kBlack){
+  //  cout<<obj<<endl;
+  obj-> SetLineColor(colorID);
   obj->SetStats(0);
   obj-> SetTitle("");
   obj->GetXaxis()->SetLabelSize(0.05);

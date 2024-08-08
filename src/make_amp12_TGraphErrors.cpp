@@ -37,10 +37,10 @@ std::vector<TGraphAsymmErrors*> util::TMatrix::make_amp12_TGraphErrors(const Tra
       h1_re-> Fill(tmp_amp22.real());
       h1_im-> Fill(tmp_amp22.imag());
     }
-    h1_re-> Fit("gaus", "");
+    h1_re-> Fit("gaus", "q");
     double re_mean =h1_re->GetFunction("gaus")-> GetParameter(1);
     double re_sigma=h1_re->GetFunction("gaus")-> GetParameter(2);
-    h1_im-> Fit("gaus", "");
+    h1_im-> Fit("gaus", "q");
     double im_mean =h1_im->GetFunction("gaus")-> GetParameter(1);
     double im_sigma=h1_im->GetFunction("gaus")-> GetParameter(2);
 
