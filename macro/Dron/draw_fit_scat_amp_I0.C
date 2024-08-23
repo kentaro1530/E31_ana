@@ -6,6 +6,9 @@ void draw_fit_scat_amp_I0(){
   TFile *f=new TFile("~/spectra_fit_scat_amp_I0.root");
   float pole, width;
 
+  /*********************/
+  /*** K-p Threshold ***/
+  /*********************/
   // printParam(f, "Kmp", pole, width);
   // draw(f, "Kmp");
   // c1-> Print("pic/Dron/fit_I0_Kmp.eps");
@@ -15,31 +18,122 @@ void draw_fit_scat_amp_I0(){
   // c1-> Print("pic/Dron/fit_width_gaus_Kmp.eps");
   // drawScatAmp(f, "Kmp");
   // c1-> Print("pic/Dron/fit_scat_amp_I0_Kmp.eps");
+  // drawPole2(f, "Kmp", pole, 1.5);
+  // c1-> Print("pic/Dron/fit_pole_gaus_Kmp_fit2Gaus_r15.eps");
+  // drawPole2(f, "Kmp", pole, 1.75);
+  // c1-> Print("pic/Dron/fit_pole_gaus_Kmp_fit2Gaus_r175.eps");
+  // drawPole2(f, "Kmp", pole, 2);
+  // c1-> Print("pic/Dron/fit_pole_gaus_Kmp_fit2Gaus_r2.eps");
+  // drawPole2(f, "Kmp", pole, 2.25);
+  // c1-> Print("pic/Dron/fit_pole_gaus_Kmp_fit2Gaus_r225.eps");
+  // drawPole2(f, "Kmp", pole, 2.5);
+  // c1-> Print("pic/Dron/fit_pole_gaus_Kmp_fit2Gaus_r25.eps");
+  // drawPole2(f, "Kmp", pole, 2.75);
+  // c1-> Print("pic/Dron/fit_pole_gaus_Kmp_fit2Gaus_r275.eps");
+  // drawPole2(f, "Kmp", pole, 3);
+  // c1-> Print("pic/Dron/fit_pole_gaus_Kmp_fit2Gaus_r3.eps");
 
+  // drawWidth2(f, "Kmp", width, 1.5);
+  // c1-> Print("pic/Dron/fit_width_gaus_Kmp_fit2Gaus_r15.eps");
+  // drawWidth2(f, "Kmp", width, 1.75);
+  // c1-> Print("pic/Dron/fit_width_gaus_Kmp_fit2Gaus_r175.eps");
+  // drawWidth2(f, "Kmp", width, 2);
+  // c1-> Print("pic/Dron/fit_width_gaus_Kmp_fit2Gaus_r2.eps");
+  // drawWidth2(f, "Kmp", width, 2.25);
+  // c1-> Print("pic/Dron/fit_width_gaus_Kmp_fit2Gaus_r225.eps");
+  // drawWidth2(f, "Kmp", width, 2.5);
+  // c1-> Print("pic/Dron/fit_width_gaus_Kmp_fit2Gaus_r25.eps");
+  // drawWidth2(f, "Kmp", width, 2.75);
+  // c1-> Print("pic/Dron/fit_width_gaus_Kmp_fit2Gaus_r275.eps");
+  // drawWidth2(f, "Kmp", width, 3);
+  // c1-> Print("pic/Dron/fit_width_gaus_Kmp_fit2Gaus_r3.eps");
+
+  /********************/
+  /*** KN threshold ***/
+  /********************/
   printParam(f, "KN", pole, width);
-  // draw(f, "KN");
-  // c1-> Print("pic/Dron/fit_I0_KN.eps");
-  // drawPole(f, "KN", pole);
-
-  // c1-> Print("pic/Dron/fit_pole_gaus_KN.eps");
+  std::cout<<pole<<"   "<<width<<std::endl;
+  draw(f, "KN");
+  c1-> Print("pic/Dron/fit_I0_KN.eps");
+  drawPole(f, "KN", pole);
+  c1-> Print("pic/Dron/fit_pole_gaus_KN.eps");
   drawWidth(f, "KN", width);
-  drawWidth2(f, "KN", width, 2);
-  drawPole2(f, "KN", pole, 2);
-
-  return;
   c1-> Print("pic/Dron/fit_width_gaus_KN.eps");
   drawScatAmp(f, "KN");
   c1-> Print("pic/Dron/fit_scat_amp_I0_KN.eps");
 
-  printParam(f, "KzeroN", pole, width);
-  draw(f, "KzeroN");
-  c1-> Print("pic/Dron/fit_I0_KzeroN.eps");
-  drawPole(f, "KzeroN", pole);
-  c1-> Print("pic/Dron/fit_pole_gaus_KzeroN.eps");
-  drawWidth(f, "KzeroN", width);
-  c1-> Print("pic/Dron/fit_width_gaus_KzeroN.eps");
-  drawScatAmp(f, "KzeroN");
-  c1-> Print("pic/Dron/fit_scat_amp_I0_KzeroN.eps");
+  // drawPole2(f, "KN", pole, 1.5);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KN_fit2Gaus_r15.eps");
+  // drawPole2(f, "KN", pole, 1.75);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KN_fit2Gaus_r175.eps");
+  // drawPole2(f, "KN", pole, 2);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KN_fit2Gaus_r2.eps");
+  // drawPole2(f, "KN", pole, 2.25);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KN_fit2Gaus_r225.eps");
+  // drawPole2(f, "KN", pole, 2.5);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KN_fit2Gaus_r25.eps");
+  // drawPole2(f, "KN", pole, 2.75);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KN_fit2Gaus_r275.eps");
+  // drawPole2(f, "KN", pole, 3);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KN_fit2Gaus_r3.eps");
+
+  // drawWidth2(f, "KN", width, 1.5);
+  // c1-> Print("pic/Dron/fit_width_gaus_KN_fit2Gaus_r15.eps");
+  // drawWidth2(f, "KN", width, 1.75);
+  // c1-> Print("pic/Dron/fit_width_gaus_KN_fit2Gaus_r175.eps");
+  // drawWidth2(f, "KN", width, 2);
+  // c1-> Print("pic/Dron/fit_width_gaus_KN_fit2Gaus_r2.eps");
+  // drawWidth2(f, "KN", width, 2.25);
+  // c1-> Print("pic/Dron/fit_width_gaus_KN_fit2Gaus_r225.eps");
+  // drawWidth2(f, "KN", width, 2.5);
+  // c1-> Print("pic/Dron/fit_width_gaus_KN_fit2Gaus_r25.eps");
+  // drawWidth2(f, "KN", width, 2.75);
+  // c1-> Print("pic/Dron/fit_width_gaus_KN_fit2Gaus_r275.eps");
+  // drawWidth2(f, "KN", width, 3);
+  // c1-> Print("pic/Dron/fit_width_gaus_KN_fit2Gaus_r3.eps");
+
+  /*********************/
+  /*** K0N Threshold ***/
+  /*********************/
+  // printParam(f, "KzeroN", pole, width);
+  // draw(f, "KzeroN");
+  // c1-> Print("pic/Dron/fit_I0_KzeroN.eps");
+  // drawPole(f, "KzeroN", pole);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KzeroN.eps");
+  // drawWidth(f, "KzeroN", width);
+  // c1-> Print("pic/Dron/fit_width_gaus_KzeroN.eps");
+  // drawScatAmp(f, "KzeroN");
+  // c1-> Print("pic/Dron/fit_scat_amp_I0_KzeroN.eps");
+
+  // drawPole2(f, "KzeroN", pole, 1.5);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KzeroN_fit2Gaus_r15.eps");
+  // drawPole2(f, "KzeroN", pole, 1.75);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KzeroN_fit2Gaus_r175.eps");
+  // drawPole2(f, "KzeroN", pole, 2);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KzeroN_fit2Gaus_r2.eps");
+  // drawPole2(f, "KzeroN", pole, 2.25);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KzeroN_fit2Gaus_r225.eps");
+  // drawPole2(f, "KzeroN", pole, 2.5);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KzeroN_fit2Gaus_r25.eps");
+  // drawPole2(f, "KzeroN", pole, 2.75);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KzeroN_fit2Gaus_r275.eps");
+  // drawPole2(f, "KzeroN", pole, 3);
+  // c1-> Print("pic/Dron/fit_pole_gaus_KzeroN_fit2Gaus_r3.eps");
+
+  // drawWidth2(f, "KzeroN", width, 1.5);
+  // c1-> Print("pic/Dron/fit_width_gaus_KzeroN_fit2Gaus_r15.eps");
+  // drawWidth2(f, "KzeroN", width, 1.75);
+  // c1-> Print("pic/Dron/fit_width_gaus_KzeroN_fit2Gaus_r175.eps");
+  // drawWidth2(f, "KzeroN", width, 2);
+  // c1-> Print("pic/Dron/fit_width_gaus_KzeroN_fit2Gaus_r2.eps");
+  // drawWidth2(f, "KzeroN", width, 2.25);
+  // c1-> Print("pic/Dron/fit_width_gaus_KzeroN_fit2Gaus_r225.eps");
+  // drawWidth2(f, "KzeroN", width, 2.5);
+  // c1-> Print("pic/Dron/fit_width_gaus_KzeroN_fit2Gaus_r25.eps");
+  // drawWidth2(f, "KzeroN", width, 2.75);
+  // c1-> Print("pic/Dron/fit_width_gaus_KzeroN_fit2Gaus_r275.eps");
+  // drawWidth2(f, "KzeroN", width, 3);
+  // c1-> Print("pic/Dron/fit_width_gaus_KzeroN_fit2Gaus_r3.eps");
 }
 
 bool drawPole(TFile *f, TString dirName, float pole){
@@ -198,10 +292,10 @@ bool drawWidth(TFile *f, TString dirName, float width){
   // std::cout<<"       "<<mean2+sigma_h<<"  "<<mean2-sigma_l<<std::endl;
   // std::cout<<"       "<<h1->GetMean()+h1->GetRMS()<<"  "<<h1->GetMean()-h1->GetRMS()<<std::endl;
 
-  std::cout<<"Width : "<<width<<std::endl;
-  std::cout<<"Width (gaus)     : "<<mean+sigma<<", "<<mean<<", "<<mean-sigma<<std::endl;
-  std::cout<<"Width (2-gaus)   : "<<mean2+sigma_h<<", "<<mean2<<", "<<mean-sigma_l<<std::endl;
-  std::cout<<"Width (RMS/mean) : "<<h1->GetMean()+h1->GetRMS()<<", "<<h1->GetMean()<<", "<<h1->GetMean()-h1-> GetRMS()<<std::endl;
+  // std::cout<<"Width : "<<width<<std::endl;
+  // std::cout<<"Width (gaus)     : "<<mean+sigma<<", "<<mean<<", "<<mean-sigma<<std::endl;
+  // std::cout<<"Width (2-gaus)   : "<<mean2+sigma_h<<", "<<mean2<<", "<<mean-sigma_l<<std::endl;
+  // std::cout<<"Width (RMS/mean) : "<<h1->GetMean()+h1->GetRMS()<<", "<<h1->GetMean()<<", "<<h1->GetMean()-h1-> GetRMS()<<std::endl;
 }
 
 bool drawWidth2(TFile *f, TString dirName, float width, double range=2.0){
@@ -237,6 +331,7 @@ bool drawWidth2(TFile *f, TString dirName, float width, double range=2.0){
   double sigma_h_2=func->GetParameter(3);
   double chi2_2=func->GetChisquare()/func->GetNDF();
 
+  int counter=0;
   while( true ){
     mean2=mean2_2;
     sigma_l=sigma_l_2;
@@ -247,13 +342,16 @@ bool drawWidth2(TFile *f, TString dirName, float width, double range=2.0){
     sigma_l_2=func->GetParameter(2);
     sigma_h_2=func->GetParameter(3);
     chi2_2=func->GetChisquare()/func->GetNDF();
-  
+
+    // std::cout<<"Iteration : "<<counter<<std::endl;  
     // std::cout<<chi2<<"  "<<chi2_2<<std::endl;
     // std::cout<<mean2<<"  "<<mean2_2<<std::endl;
     // std::cout<<sigma_h<<"  "<<sigma_h_2<<std::endl;
     // std::cout<<sigma_l<<"  "<<sigma_l_2<<std::endl;
     // std::cout<<fabs((chi2-chi2_2)/chi2_2)<<"  "<<fabs((mean2-mean2_2)/mean2_2)<<"  "<<fabs((sigma_h-sigma_h_2)/sigma_h_2)<<"  "<<fabs((sigma_l-sigma_l_2)/sigma_l_2)<<std::endl;
     if( fabs((chi2-chi2_2)/chi2_2)<0.01 && fabs((mean2-mean2_2)/mean2_2)<0.01 && fabs((sigma_h-sigma_h_2)/sigma_h_2)<0.01 && fabs((sigma_l-sigma_l_2)/sigma_l_2)<0.01 ) break;
+    counter++;
+    if( counter>1000 ) break;
   }
   line.SetLineStyle(1);
   line.SetLineColor(kBlue);
@@ -261,6 +359,15 @@ bool drawWidth2(TFile *f, TString dirName, float width, double range=2.0){
   line.SetLineStyle(9);
   line.DrawLine(mean2-sigma_l, 0, mean2-sigma_l, 1.05*h1->GetMaximum());
   line.DrawLine(mean2+sigma_h, 0, mean2+sigma_h, 1.05*h1->GetMaximum());
+
+  std::cout<<"===== Draw Width w/ 2-Gaussian ====="<<std::endl;
+  //  std::cout<<"chi2/NDF : "<<func->GetChisquare()<<"/"<<func->GetNDF()<<" = "<<func->GetChisquare()/func->GetNDF()<<std::endl;
+  std::cout<<"\"Range\" : "<<range<<","<<std::endl;
+  std::cout<<"\"chi2\" : "<<func->GetChisquare()<<","<<std::endl;
+  std::cout<<"\"NDF\" : "<<func->GetNDF()<<","<<std::endl;
+  std::cout<<"\"Mean\" : "<<mean2<<","<<std::endl;
+  std::cout<<"\"Lower\" : "<<mean2-sigma_l<<","<<std::endl;
+  std::cout<<"\"Upper\" : "<<mean2+sigma_h<<std::endl;
 
   return true;
 }
@@ -298,6 +405,7 @@ bool drawPole2(TFile *f, TString dirName, float pole, double range=2.0){
   double sigma_h_2=func->GetParameter(3);
   double chi2_2=func->GetChisquare()/func->GetNDF();
 
+  int counter=0;
   while( true ){
     mean2=mean2_2;
     sigma_l=sigma_l_2;
@@ -309,12 +417,15 @@ bool drawPole2(TFile *f, TString dirName, float pole, double range=2.0){
     sigma_h_2=func->GetParameter(3);
     chi2_2=func->GetChisquare()/func->GetNDF();
   
+    // std::cout<<"Iteration : "<<counter<<std::endl;
     // std::cout<<chi2<<"  "<<chi2_2<<std::endl;
     // std::cout<<mean2<<"  "<<mean2_2<<std::endl;
     // std::cout<<sigma_h<<"  "<<sigma_h_2<<std::endl;
     // std::cout<<sigma_l<<"  "<<sigma_l_2<<std::endl;
     // std::cout<<fabs((chi2-chi2_2)/chi2_2)<<"  "<<fabs((mean2-mean2_2)/mean2_2)<<"  "<<fabs((sigma_h-sigma_h_2)/sigma_h_2)<<"  "<<fabs((sigma_l-sigma_l_2)/sigma_l_2)<<std::endl;
     if( fabs((chi2-chi2_2)/chi2_2)<0.01 && fabs((mean2-mean2_2)/mean2_2)<0.01 && fabs((sigma_h-sigma_h_2)/sigma_h_2)<0.01 && fabs((sigma_l-sigma_l_2)/sigma_l_2)<0.01 ) break;
+    counter++;
+    if( counter>1000 ) break;
   }
   line.SetLineStyle(1);
   line.SetLineColor(kBlue);
@@ -322,6 +433,15 @@ bool drawPole2(TFile *f, TString dirName, float pole, double range=2.0){
   line.SetLineStyle(9);
   line.DrawLine(mean2-sigma_l, 0, mean2-sigma_l, 1.05*h1->GetMaximum());
   line.DrawLine(mean2+sigma_h, 0, mean2+sigma_h, 1.05*h1->GetMaximum());
+
+  std::cout<<"===== Draw Pole w/ 2Gaussian ====="<<std::endl;
+  //  std::cout<<"chi2/NDF : "<<func->GetChisquare()<<"/"<<func->GetNDF()<<" = "<<func->GetChisquare()/func->GetNDF()<<std::endl;
+  std::cout<<"\"Range\" : "<<range<<","<<std::endl;
+  std::cout<<"\"chi2\" : "<<func->GetChisquare()<<","<<std::endl;
+  std::cout<<"\"NDF\" : "<<func->GetNDF()<<","<<std::endl;
+  std::cout<<"\"Mean\" : "<<mean2<<","<<std::endl;
+  std::cout<<"\"Lower\" : "<<mean2-sigma_l<<","<<std::endl;
+  std::cout<<"\"Upper\" : "<<mean2+sigma_h<<std::endl;
 
   return true;
 }
