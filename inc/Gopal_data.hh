@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Gopal_data/KbarN_KbarN_I0.hh"
 #include "Gopal_data/KbarN_KbarN_I1.hh"
 

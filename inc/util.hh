@@ -1,5 +1,4 @@
-#ifndef UTIL_HH
-#define UTIL_HH
+#pragma once
 
 #include "common.hh"
 #include "TMatrix.hh"
@@ -20,4 +19,4 @@ namespace util{
   }
 }
 
-#endif
+

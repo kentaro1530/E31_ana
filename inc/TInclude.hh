@@ -1,5 +1,4 @@
-#ifndef TINCLUDE_HH
-#define TINCLUDE_HH 1
+#pragma once
 
 #include <TH1F.h>
 #include <TGraph.h>
@@ -16,4 +15,4 @@
 
 #include <TRandom3.h>
 
-#endif
+

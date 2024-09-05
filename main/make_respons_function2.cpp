@@ -4,6 +4,7 @@
 #include "reso.hh"
 #include "util.hh"
 #include "d_wave_func.hh"
+#include "Gopal.hh"
 
 #include <TLorentzVector.h>
 
@@ -24,22 +25,26 @@ int main(){
   beam_lmom.SetVectM(TVector3(0, 0, 1.0), kpMass);
   target_lmom.SetVectM(TVector3(0, 0, 0), dMass);
 
-  std::vector<double> piS_mass, n_mom, G0_phi, G0_phi2;
+  std::vector<double> piS_mass, n_mom, G0_phi_re, G0_phi_im, G0_phi2;
   for(double W2=START_MASS; W2<END_MASS; W2+=DELTA_MASS ){ // W2=pi Sigma mass
-    const auto mom=W_to_mom((beam_lmom+target_lmom).M(), W2, nMass);
+    const std::complex<double> mom=W_to_mom((beam_lmom+target_lmom).M(), W2, nMass);
     TLorentzVector n_lmom;
     n_lmom.SetVectM(TVector3(0, 0, mom.real()), nMass);
 
     n_lmom.Boost((beam_lmom+target_lmom).BoostVector()); 
-    double sum=0;
+    std::complex<double> sum(0, 0);
     std::vector<double> p_arr, theta_arr, offshell_mass, kbar_mass, kbar_mom, G0_arr, phi_arr;
     for(double p=0.5*DELTA_P; p<CUT_MOMENTUM; p+=DELTA_P){
-      double inner_sum=0;
+      std::complex<double> inner_sum(0, 0);
       for(double theta=0.5*DELTA_THETA; theta<TMath::Pi(); theta+=DELTA_THETA){
 	TVector3 fermi_mom(p*p*sin(theta), 0, p*p*cos(theta));
 	TLorentzVector onshell_lmom;
 	onshell_lmom.SetVectM(fermi_mom, nMass);
 	TLorentzVector offshell_lmom=target_lmom-onshell_lmom; 
+
+	const double W_KN=(beam_lmom+onshell_lmom).M();
+	//	std::cout<<p<<"  "<<theta<<"  "<<W_KN<<std::endl;
+	std::complex<double> T_1_I0=Gopal::scat_amp_I0(W_KN);
 
 	TLorentzVector inflight_lmom=beam_lmom+target_lmom-n_lmom-offshell_lmom; // KbarMomentum
 	TVector3 boost=-(onshell_lmom+beam_lmom).BoostVector(); // K-onshell(K-N)系への変換
@@ -49,9 +54,10 @@ int main(){
 	n_lmom_at_KN.Boost(boost);
 	inflight_lmom_at_KN.Boost(boost);
 	
-	const double G0=1.0/(inflight_lmom_at_KN.Vect().Mag2()-inflight_lmom_at_KN.M2()x);
+	const double G0=1.0/(inflight_lmom_at_KN.Vect().Mag2()-inflight_lmom_at_KN.M2());
       
-	inner_sum+=d_wave_func::value_knucl(p)*G0*p*p*sin(theta)*DELTA_P*DELTA_THETA;
+	inner_sum+=T_1_I0*d_wave_func::value_knucl(p)*G0*p*p*sin(theta)*DELTA_P*DELTA_THETA;
+	//	inner_sum += d_wave_func::value_knucl(p)*G0*p*p*sin(theta)*DELTA_P*DELTA_THETA;
 	
 	if( isnan(G0) ){
 	  std::cout<<"Fermi mom = "<<p<<"   theta="<<theta<<std::endl;
@@ -71,13 +77,16 @@ int main(){
       }
       //      std::cout<<"  p = "<<p<<" "<<inner_sum<<std::endl;
       //      std::cout<<"      p*p*phi_d(p) ="<<p*p*d_wave_func::value(p)<<std::endl;
-      sum+=inner_sum;
+      //      std::cout<<sum<<std::endl;
+      sum += inner_sum;
     }
+    std::cout<<sum<<std::endl;
     //    std::cout<<Form("W_%d_offshell_mass", (int)(1000*W2))<<std::endl;
     piS_mass.push_back(W2);
     n_mom.push_back(n_lmom.Vect().Mag());
-    G0_phi.push_back(sum);
-    G0_phi2.push_back(pow(sum, 2));
+    G0_phi_re.push_back(sum.real());
+    G0_phi_im.push_back(sum.imag());
+    G0_phi2.push_back(pow(abs(sum), 2));
 
     util::write_tgraph2D(p_arr, theta_arr, offshell_mass, Form("W_%d_offshell_mass", (int)(1000*W2)));
     util::write_tgraph2D(p_arr, theta_arr, kbar_mass, Form("W_%d_kbar_mass", (int)(1000*W2)));
@@ -86,8 +95,9 @@ int main(){
     //    std::cout<<n_lmom.X()<<", "<<n_lmom.Y()<<", "<<n_lmom.Z()<<", E="<<n_lmom.E()<<std::endl;
   }
   util::write_tgraph(piS_mass, n_mom, "forward_n_mom");
-  util::write_tgraph(piS_mass, G0_phi, "G0_phi_mom");
-  util::write_tgraph(piS_mass, G0_phi2, "G0_phi2_mom");
+  util::write_tgraph(piS_mass, G0_phi_re, "G0_phi_re_mass");
+  util::write_tgraph(piS_mass, G0_phi_im, "G0_phi_im_mass");
+  util::write_tgraph(piS_mass, G0_phi2, "G0_phi2_mass");
 
   of-> Write();
   std::cout<<"FINISH make response Function"<<std::endl;
