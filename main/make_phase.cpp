@@ -28,8 +28,8 @@ int main(){
     x.push_back(pimSp_A_points[0][i]);
     double phase_A=(pimSp_A_points[1][i]-pipSm_A_points[1][i])/sqrt(pimS0_A_points[1][i]*pi0S0_A_points[1][i]);
     double phase_B=(pimSp_B_points[1][i]-pipSm_B_points[1][i])/sqrt(pimS0_B_points[1][i]*pi0S0_B_points[1][i]);
-    if( isnan(phase_A) ) phase_A=0;
-    if( isnan(phase_B) ) phase_B=0;
+    if( std::isnan(phase_A) ) phase_A=0;
+    if( std::isnan(phase_B) ) phase_B=0;
 
     y_A.push_back(phase_A);
     y_B.push_back(phase_B);

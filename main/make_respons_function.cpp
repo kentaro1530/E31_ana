@@ -55,7 +55,7 @@ int main(){
       
 	inner_sum+=d_wave_func::value_knucl(p)*G0*p*p*sin(theta)*DELTA_P*DELTA_THETA;
 	
-	if( isnan(G0) ){
+	if( std::isnan(G0) ){
 	  std::cout<<"Fermi mom = "<<p<<"   theta="<<theta<<std::endl;
 	  std::cout<<"m_N = "<<offshell_lmom.M()<<", m_K = "<<inflight_lmom.M()<<std::endl;
 	  std::cout<<"Boost  = "<<boost.X()<<", "<<boost.Y()<<", "<<boost.Z()<<std::endl;

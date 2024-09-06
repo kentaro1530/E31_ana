@@ -1,9 +1,14 @@
-#include "macro/init.C"
+// #include "macro/init.C"
+#include "../init.C"
 
 double bestFit=1.41833;
 
+void fit(TString dirName, double &lower, double &upper, double threshold=0.5);
+void serachFWHM(TH1F *h1, double &min, double &max, double threshold);
+
 void fit_L1405_pole(){
   init();
+  TCanvas *c1=new TCanvas("c1", "c1");
   double lower1, upper1, lower2, upper2, lower3, upper3;
   fit("Kmp", lower1, upper1);
   c1-> Print("pic/Dron/fit_pole_gaus_Kmp_fit2Gaus.eps");
@@ -21,10 +26,10 @@ void fit_L1405_pole(){
   std::cout<<"syst. upper : "<<upper3-upper2<<std::endl;
 }
 
-void fit(TString dirName, double &lower, double &upper, double threshold=0.5){
+void fit(TString dirName, double &lower, double &upper, double threshold){
   TFile *f=new TFile("~/spectra_fit_scat_amp_I0.root");
   TDirectory *dir=(TDirectory*)f->Get(dirName);
-  TH1F *h1=set((TH1F*)dir-> Get("Pole_dist_gauss"));
+  TH1F *h1=setOpts((TH1F*)dir-> Get("Pole_dist_gauss"));
   h1-> Rebin(2);
   h1-> GetXaxis()-> SetTitle("Pole [GeV]");
   h1-> GetYaxis()-> SetTitle("Counts");
