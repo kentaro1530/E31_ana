@@ -1,86 +1,87 @@
-#include "macro/Dron/L1405_param.h"
-#include "macro/init.C"
+#include "L1405_param.h"
+#include "../init.C"
+
+const int SIZE=sizeof(width_Kmp_cut_hight)/sizeof(width_Kmp_cut_hight[0]);
+
+TGraph* make_chi2NDF_graph(const double range[], const double chi2[], const double ndf[]);
+TGraph* setOpts(TGraph* gra, int kColor=kBlack);
 
 void draw_L1405_width_w2Gaus(){
   init();
-
-  TGraph* gra_chi2NDF_Kmp=set(make_chi2NDF_graph(width_KN_range, width_Kmp_chi2, width_Kmp_NDF), kRed);
-  TGraph* gra_chi2NDF_KN=set(make_chi2NDF_graph(width_KN_range, width_KN_chi2, width_KN_NDF), 3);
-  TGraph* gra_chi2NDF_KzeroN=set(make_chi2NDF_graph(width_KN_range, width_KzeroN_chi2, width_KzeroN_NDF), kBlue);
-
-  TGraph* gra_chi2_Kmp=set(new TGraph(7, width_KN_range, width_Kmp_chi2), kRed);
-  TGraph* gra_chi2_KN=set(new TGraph(7, width_KN_range, width_KN_chi2), 3);
-  TGraph* gra_chi2_KzeroN=set(new TGraph(7, width_KN_range, width_KzeroN_chi2), kBlue);
-  gra_chi2NDF_KN-> GetYaxis()-> SetRangeUser(0.0, 2.5);
-  gra_chi2NDF_KN->GetXaxis()-> SetTitle("Range of #sigma");
-  gra_chi2NDF_KN->GetYaxis()-> SetTitle("#chi^{2}/NDF");
-  gra_chi2NDF_KN-> Draw("AP");
-  gra_chi2NDF_KzeroN-> Draw("P");
-  gra_chi2NDF_Kmp-> Draw("P");
+  TCanvas *c1=new TCanvas("c1", "c1");
+  
+  TGraph *gra_chi2NDF_Kmp=setOpts(make_chi2NDF_graph(width_Kmp_cut_hight, width_Kmp_chi2, width_Kmp_NDF), 6);
+  TGraph *gra_chi2NDF_KN=setOpts(make_chi2NDF_graph(width_KN_cut_hight, width_KN_chi2, width_KN_NDF), kRed);
+  TGraph *gra_chi2NDF_KzeroN=setOpts(make_chi2NDF_graph(width_KzeroN_cut_hight, width_KzeroN_chi2, width_KzeroN_NDF), kBlue);
+  gra_chi2NDF_KzeroN-> GetXaxis()-> SetTitle("#chi^{2}/NDF");
+  gra_chi2NDF_KzeroN-> GetYaxis()-> SetTitle("Cut Height");
+  gra_chi2NDF_KzeroN-> Draw("APL");
+  gra_chi2NDF_Kmp-> Draw("PL");
+  gra_chi2NDF_KN-> Draw("PL");
+  TLegend *leg=new TLegend(0.5, 0.6, 0.8, 0.9);
+  leg->	SetFillStyle(0);
+  leg-> SetBorderSize(0);
+  leg-> AddEntry(gra_chi2NDF_Kmp, "K^{-}p threshold", "lp");
+  leg-> AddEntry(gra_chi2NDF_KN,  "#bar{K}N threshold", "lp");
+  leg-> AddEntry(gra_chi2NDF_KzeroN, "K^{0}n threshold", "lp");
+  leg-> Draw();
   c1-> Print("pic/Dron/L1405_width_chi2NDF.eps");
 
-  TGraph* gra_mean_KN=set(new TGraph(7, width_KN_range, width_KN_mean), 3);
-  TGraph* gra_upper_KN=set(new TGraph(7, width_KN_range, width_KN_upper), 3);
-  TGraph* gra_lower_KN=set(new TGraph(7, width_KN_range, width_KN_lower), 3);
-
-  TGraph* gra_mean_Kmp=set(new TGraph(7, width_Kmp_range, width_Kmp_mean), kRed);
-  TGraph* gra_upper_Kmp=set(new TGraph(7, width_Kmp_range, width_Kmp_upper), kRed);
-  TGraph* gra_lower_Kmp=set(new TGraph(7, width_Kmp_range, width_Kmp_lower), kRed);
-
-  TGraph* gra_mean_KzeroN=set(new TGraph(7, width_KzeroN_range, width_KzeroN_mean), kBlue);
-  TGraph* gra_upper_KzeroN=set(new TGraph(7, width_KzeroN_range, width_KzeroN_upper), kBlue);
-  TGraph* gra_lower_KzeroN=set(new TGraph(7, width_KzeroN_range, width_KzeroN_lower), kBlue);
-
-  gra_mean_KN-> GetYaxis()-> SetRangeUser(-0.035, -0.015);
-  gra_upper_KN-> SetMarkerStyle(23);
-  gra_lower_KN-> SetMarkerStyle(22);
-
-  gra_mean_Kmp-> GetYaxis()-> SetRangeUser(-0.035, -0.015);
-  gra_upper_Kmp-> SetMarkerStyle(23);
-  gra_lower_Kmp-> SetMarkerStyle(22);
-
-  gra_mean_KzeroN-> GetYaxis()-> SetRangeUser(-0.035, -0.015);
-  gra_upper_KzeroN-> SetMarkerStyle(23);
-  gra_lower_KzeroN-> SetMarkerStyle(22);
-
-  gra_mean_KN-> Draw("APL");
-  gra_upper_KN-> Draw("PL");
-  gra_lower_KN-> Draw("PL");
-  c1-> Print("pic/Dron/L1405_width_range_Kmp.eps");
-
-  gra_mean_Kmp-> Draw("APL");
+  TLine line;
+  line.SetLineWidth(2);
+  line.SetLineColor(3);
+  
+  TGraph *gra_lower_Kmp=setOpts(new TGraph(SIZE, width_Kmp_lower, width_Kmp_cut_hight), 6);
+  TGraph *gra_upper_Kmp=setOpts(new TGraph(SIZE, width_Kmp_upper, width_Kmp_cut_hight), 6); 
+  gra_lower_Kmp-> GetXaxis()-> SetLimits(-0.035, -0.01);
+  gra_lower_Kmp-> GetXaxis()-> SetTitle("Range of Width [MeV]");
+  gra_lower_Kmp-> GetYaxis()-> SetTitle("Cut Height");
+  gra_lower_Kmp-> Draw("APL");
   gra_upper_Kmp-> Draw("PL");
-  gra_lower_Kmp-> Draw("PL");
+  line.DrawLine(width_KN_bestFit, 0, width_KN_bestFit, 0.67);
+  c1-> Print("pic/Dron/L1405_width_range_Kmp.eps");
+  
+  TGraph *gra_lower_KN=setOpts(new TGraph(SIZE, width_KN_lower, width_KN_cut_hight), kRed);
+  TGraph *gra_upper_KN=setOpts(new TGraph(SIZE, width_KN_upper, width_KN_cut_hight), kRed); 
+  gra_lower_KN-> GetXaxis()-> SetLimits(-0.035, -0.01);
+  gra_lower_KN-> GetXaxis()-> SetTitle("Range of Width [MeV]");
+  gra_lower_KN-> GetYaxis()-> SetTitle("Cut Height");
+  gra_lower_KN-> Draw("APL");
+  gra_upper_KN-> Draw("PL");
+  line.DrawLine(width_KN_bestFit, 0, width_KN_bestFit, 0.67);
   c1-> Print("pic/Dron/L1405_width_range_KN.eps");
-
-  gra_mean_KzeroN-> Draw("APL");
+  
+  TGraph *gra_lower_KzeroN=setOpts(new TGraph(SIZE, width_KzeroN_lower, width_KzeroN_cut_hight), kBlue);
+  TGraph *gra_upper_KzeroN=setOpts(new TGraph(SIZE, width_KzeroN_upper, width_KzeroN_cut_hight), kBlue); 
+  gra_lower_KzeroN-> GetXaxis()-> SetLimits(-0.035, -0.01);
+  gra_lower_KzeroN-> GetXaxis()-> SetTitle("Range of Width [MeV]");
+  gra_lower_KzeroN-> GetYaxis()-> SetTitle("Cut Height");
+  gra_lower_KzeroN-> Draw("APL");
   gra_upper_KzeroN-> Draw("PL");
-  gra_lower_KzeroN-> Draw("PL");
+  line.DrawLine(width_KN_bestFit, 0, width_KN_bestFit, 0.67);
   c1-> Print("pic/Dron/L1405_width_range_KzeroN.eps");
 }
 
-TGraph *set(TGraph *gra, int color=kBlack){
+TGraph* setOpts(TGraph* gra, int kColor){
+  gra-> SetMarkerColor(kColor);
+  gra-> SetLineColor(kColor);
+  gra-> SetLineWidth(3);
+  gra-> SetMarkerStyle(8);
+
   gra->SetTitle("");
   gra->GetXaxis()->SetLabelSize(0.05);
   gra->GetXaxis()->SetTitleSize(0.06);
   gra->GetXaxis()->CenterTitle();
 
+  gra->SetLineWidth(2);
   gra->GetYaxis()->SetLabelSize(0.05);
   gra->GetYaxis()->SetTitleSize(0.06);
   gra->GetYaxis()->CenterTitle();
-  gra-> SetLineWidth(2);
-
-  gra->SetMarkerColor(color);
-  gra->SetLineColor(color);
-  gra->SetMarkerStyle(8);
-  gra->SetMarkerSize(1.5);
-
   return gra;
 }
 
-
-TGraph* make_chi2NDF_graph(double range[], double chi2[], double ndf[]){
-  double chi2NDF[7];
+TGraph* make_chi2NDF_graph(const double range[], const double chi2[], const double ndf[]){
+  double chi2NDF[SIZE];
   for( int i=0; i<7; i++ ) chi2NDF[i]=chi2[i]/ndf[i];
-  return new TGraph(7, range, chi2NDF);
+  return new TGraph(SIZE, chi2NDF, range);
 }

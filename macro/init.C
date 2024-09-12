@@ -84,11 +84,12 @@ TH1F* setOpts(TH1F* obj, int colorID=kBlack){
   //  cout<<obj<<endl;
   obj-> SetLineColor(colorID);
   obj->SetStats(0);
-  obj-> SetTitle("");
+  obj->SetTitle("");
   obj->GetXaxis()->SetLabelSize(0.05);
   obj->GetXaxis()->SetTitleSize(0.06);
   obj->GetXaxis()->CenterTitle();
 
+  obj->SetLineWidth(2);
   obj->GetYaxis()->SetLabelSize(0.05);
   obj->GetYaxis()->SetTitleSize(0.06);
   obj->GetYaxis()->CenterTitle();

@@ -44,5 +44,8 @@ clean:
 	rm -f $(ENTRY_OBJDIR)/*.d
 	rm -f $(OBJDIR)/*.d
 	rm -f $(BINDIR)/*
+	rm -f AutoDict_*
+	rm -f $(ENTRY_POINT)/obj/*.o
+
 -include $(ENTRY_OBJDIR)/*.d
 -include $(OBJDIR)/*.d
