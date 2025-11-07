@@ -1,4 +1,6 @@
-#include "macro/init.C"
+#include "../init.C"
+
+TH2F* setOpts(TH2F *h2);
 
 void draw_L1405_pole(){
   init();
@@ -15,8 +17,8 @@ void draw_L1405_pole(){
 
   const double marker_x[]={ 1.31, 1.31, 1.31, 1.35, 1.35 };
   const double marker_y[]={ -0.01, -0.02, -0.03, -0.015, -0.025 };
-  const TString name[]={ "Cieply", "Ohinishi", "Histrical", "DCC.A", "DCC.B"}
-  TH2F *h2=set(new TH2F("h2", "", 100, 1.30, 1.45, 100, -0.1, 0.0));
+  const TString name[]={ "Cieply", "Ohinishi", "Histrical", "DCC.A", "DCC.B"};
+  TH2F *h2=setOpts(new TH2F("h2", "", 100, 1.30, 1.45, 100, -0.1, 0.0));
   h2-> Draw();
   TBox box;
   box.SetFillStyle(0);
@@ -25,7 +27,7 @@ void draw_L1405_pole(){
   TLatex latex;
   TMarker mark;
   mark.SetMarkerSize(2);
-  for( size_t i=0; i<sizeof(higher_mass)/sizeof(higher_mass[]); i++ ){
+  for( size_t i=0; i<sizeof(higher_mass)/sizeof(higher_mass[0]); i++ ){
     mark.SetMarkerStyle(markerStyle[i]);
     mark.SetMarkerColor(markerColor[i]);
     mark.DrawMarker(higher_mass[i], higher_width[i]);
@@ -46,11 +48,11 @@ void draw_L1405_pole(){
   c1-> Print("pic/Dron/L1405_pole.eps");
 }
 
-TH2F* set(TH2F *h2){
+TH2F* setOpts(TH2F *h2){
   h2-> SetStats(0);
   h2-> SetMarkerStyle(8);
   h2-> SetLineWidth(2);
-  h2-> SetTitle();
+  h2-> SetTitle("");
   h2->GetXaxis()->SetLabelSize(0.05);
   h2->GetXaxis()->SetTitleSize(0.06);
   h2->GetXaxis()->CenterTitle();

@@ -34,10 +34,10 @@ void setMargin(double top, double left, double bottom, double right){
 }
 
 void setMargin(){
-  gStyle-> SetPadLeftMargin(0.1);
+  gStyle-> SetPadLeftMargin(0.15);
   gStyle-> SetPadBottomMargin(0.15);
-  gStyle-> SetPadRightMargin(0.0);
-  gStyle-> SetPadTopMargin(0.15);
+  gStyle-> SetPadRightMargin(0.01);
+  gStyle-> SetPadTopMargin(0.01);
 }
 
 Double_t doubleGauss(Double_t *x, Double_t *par){

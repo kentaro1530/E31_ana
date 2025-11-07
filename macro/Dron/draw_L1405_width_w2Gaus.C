@@ -9,16 +9,18 @@ TGraph* setOpts(TGraph* gra, int kColor=kBlack);
 void draw_L1405_width_w2Gaus(){
   init();
   TCanvas *c1=new TCanvas("c1", "c1");
-  
-  TGraph *gra_chi2NDF_Kmp=setOpts(make_chi2NDF_graph(width_Kmp_cut_hight, width_Kmp_chi2, width_Kmp_NDF), 6);
-  TGraph *gra_chi2NDF_KN=setOpts(make_chi2NDF_graph(width_KN_cut_hight, width_KN_chi2, width_KN_NDF), kRed);
-  TGraph *gra_chi2NDF_KzeroN=setOpts(make_chi2NDF_graph(width_KzeroN_cut_hight, width_KzeroN_chi2, width_KzeroN_NDF), kBlue);
-  gra_chi2NDF_KzeroN-> GetXaxis()-> SetTitle("#chi^{2}/NDF");
-  gra_chi2NDF_KzeroN-> GetYaxis()-> SetTitle("Cut Height");
+
+  double sigma_list[]={ 1.0, 1.5, 2.0, 2.5, 3.0, 100.0 };
+  TGraph *gra_chi2NDF_Kmp=setOpts(make_chi2NDF_graph(sigma_list, width_Kmp_chi2, width_Kmp_NDF), 6);
+  TGraph *gra_chi2NDF_KN=setOpts(make_chi2NDF_graph(sigma_list, width_KN_chi2, width_KN_NDF), kRed);
+  TGraph *gra_chi2NDF_KzeroN=setOpts(make_chi2NDF_graph(sigma_list, width_KzeroN_chi2, width_KzeroN_NDF), kBlue);
+  gra_chi2NDF_KzeroN-> GetYaxis()-> SetTitle("#chi^{2}/NDF");
+  gra_chi2NDF_KzeroN-> GetXaxis()-> SetTitle("Fit Range of #sigma");
+  gra_chi2NDF_KzeroN-> GetXaxis()-> SetRangeUser(0, 5.0);
   gra_chi2NDF_KzeroN-> Draw("APL");
   gra_chi2NDF_Kmp-> Draw("PL");
   gra_chi2NDF_KN-> Draw("PL");
-  TLegend *leg=new TLegend(0.5, 0.6, 0.8, 0.9);
+  TLegend *leg=new TLegend(0.6, 0.25, 0.85, 0.5);
   leg->	SetFillStyle(0);
   leg-> SetBorderSize(0);
   leg-> AddEntry(gra_chi2NDF_Kmp, "K^{-}p threshold", "lp");
@@ -26,7 +28,8 @@ void draw_L1405_width_w2Gaus(){
   leg-> AddEntry(gra_chi2NDF_KzeroN, "K^{0}n threshold", "lp");
   leg-> Draw();
   c1-> Print("pic/Dron/L1405_width_chi2NDF.eps");
-
+  return;
+  
   TLine line;
   line.SetLineWidth(2);
   line.SetLineColor(3);
@@ -83,5 +86,5 @@ TGraph* setOpts(TGraph* gra, int kColor){
 TGraph* make_chi2NDF_graph(const double range[], const double chi2[], const double ndf[]){
   double chi2NDF[SIZE];
   for( int i=0; i<7; i++ ) chi2NDF[i]=chi2[i]/ndf[i];
-  return new TGraph(SIZE, chi2NDF, range);
+  return new TGraph(SIZE, range, chi2NDF);
 }
