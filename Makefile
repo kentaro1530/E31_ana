@@ -1,6 +1,6 @@
 CXX := g++
 
-CXX_FLAGS := -std=c++11 -Wall -Wextra -O3 -MD $(shell $(ROOTSYS)/bin/root-config --libs)  -lMinuit -lGeom -lEG
+CXX_FLAGS := -std=c++11 -Wall -Wextra -O3 -g -MD $(shell $(ROOTSYS)/bin/root-config --libs)  -lMinuit -lGeom -lEG
 CXX_INC := -I./inc/ $(shell $(ROOTSYS)/bin/root-config --cflags)
 
 ENTRY_POINT := main

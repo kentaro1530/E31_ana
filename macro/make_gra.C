@@ -4,7 +4,7 @@ TGraphErrors* make_K0_CS(){
   std::vector<double> x_arr, y_arr, xerr_arr, yerr_arr;
   while( getline(ifs, str) ){
     double x, y, xerr, err, err2;
-    if( sscanf(str.c_str(), "%lf %lf %lf %lf %lf %lf", &x, &y, &xerr, &err, &err2)==5 ){
+    if( sscanf(str.c_str(), "%lf %lf %lf %lf %lf", &x, &y, &xerr, &err, &err2)==5 ){
       x_arr.push_back(x);
       y_arr.push_back(y);
       xerr_arr.push_back(xerr);

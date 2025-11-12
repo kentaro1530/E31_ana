@@ -1,9 +1,11 @@
-#include "macro/init.C"
+#include "../init.C"
 
 const TString infileroot="~/fit_model_B.root";
 
 void draw_fit_B_all(){
   init();
+  TCanvas *c1 = new TCanvas("c1", "c1");
+  
   TFile *f=new TFile(infileroot);
   TGraphErrors *gra_data_pimSp=(TGraphErrors*)f->Get("gra_pimSp_CS");
   TGraph *gra_pimSp_1=(TGraph*)f->Get("gra_pimSp_B_scale");
@@ -37,7 +39,7 @@ void draw_fit_B_all(){
   gra_pipSm_1-> Draw("L");
   gra_pipSm_2-> Draw("L");
   gra_pipSm_3-> Draw("L");
-  TLegend *leg =new TLegend(0.15, 0.65, 0.4, 0.95);
+  leg =new TLegend(0.15, 0.65, 0.4, 0.95);
   leg-> SetFillStyle(0);
   leg-> SetBorderSize(0);
   leg-> AddEntry(gra_pipSm_2, "3 param", "l");
@@ -58,7 +60,7 @@ void draw_fit_B_all(){
   gra_pimS0_1-> Draw("L");
   gra_pimS0_2-> Draw("L");
   gra_pimS0_3-> Draw("L");
-  TLegend *leg =new TLegend(0.15, 0.65, 0.4, 0.95);
+  leg =new TLegend(0.15, 0.65, 0.4, 0.95);
   leg-> SetFillStyle(0);
   leg-> SetBorderSize(0);
   leg-> AddEntry(gra_pimS0_2, "3 param", "l");
@@ -79,7 +81,7 @@ void draw_fit_B_all(){
   gra_I0_1-> Draw("L");
   gra_I0_2-> Draw("L");
   gra_I0_3-> Draw("L");
-  TLegend *leg =new TLegend(0.15, 0.65, 0.4, 0.95);
+  leg =new TLegend(0.15, 0.65, 0.4, 0.95);
   leg-> SetFillStyle(0);
   leg-> SetBorderSize(0);
   leg-> AddEntry(gra_I0_2, "3 param", "l");
@@ -100,7 +102,7 @@ void draw_fit_B_all(){
   gra_interfer_1-> Draw("L");
   gra_interfer_2-> Draw("L");
   gra_interfer_3-> Draw("L");
-  TLegend *leg =new TLegend(0.15, 0.65, 0.4, 0.95);
+  leg =new TLegend(0.15, 0.65, 0.4, 0.95);
   leg-> SetFillStyle(0);
   leg-> SetBorderSize(0);
   leg-> AddEntry(gra_interfer_2, "3 param", "l");
