@@ -40,7 +40,7 @@ void fit(TString dirName, double threshold){
   func-> SetParameter(3, 0.3*h1->GetRMS());
   
   h1-> Draw();
-  h1-> Fit("double_gaus", "q", "", bin_l, bin_h);
+  h1-> Fit("double_gaus", "", "", bin_l, bin_h);
   TBox box;
   box.SetFillStyle(3002);
   box.SetFillColor(kGray);
