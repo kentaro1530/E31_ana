@@ -11,7 +11,7 @@ double range[]={ exp(-1./2), exp(-1.5*1.5/2), exp(-2), exp(-2.5*2.5/2), exp(-9/2
 void fit_L1405_width(){
   init();
   TCanvas *c1=new TCanvas("c1", "c1");
-  const TString dirName="KzeroN";
+  const TString dirName="KN";
   
   for( int i=0; i<sizeof(range)/sizeof(range[0]); i++ ){
     fit(dirName, range[i]);    

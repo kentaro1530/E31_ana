@@ -6,7 +6,7 @@ const double bestFit=1.41833;
 void fit(TString dirName, double threshold=0.5);
 void serachFWHM(TH1F *h1, double &min, double &max, double threshold);
 
-double range[]={ exp(-1./2), exp(-1.5*1.5/2), exp(-2), exp(-2.5*2.5/2), exp(-9/2), 0 };
+double range[]={ exp(-0.5*0.5/2), exp(-0.75*0.75/2), exp(-1./2), exp(-1.5*1.5/2), exp(-2), exp(-2.5*2.5/2), exp(-9/2), 0 };
 
 void fit_L1405_pole(){
   init();
