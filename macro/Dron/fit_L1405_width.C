@@ -1,17 +1,19 @@
 // #include "macro/init.C"
 #include "../init.C"
 
-const double bestFit=-0.0278259;
+// const double bestFit=-0.0303;
+// const double bestFit=-0.0278259;
+const double bestFit=-0.0259;
 
 void fit(TString dirName, double threshold=0.5);
 void serachFWHM(TH1F *h1, double &min, double &max, double threshold);
 
-double range[]={ exp(-1./2), exp(-1.5*1.5/2), exp(-2), exp(-2.5*2.5/2), exp(-9/2), 0 };
+double range[]={ exp(-0.5*0.5/2), exp(-0.75*0.75/2), exp(-1./2), exp(-1.5*1.5/2), exp(-2), exp(-2.5*2.5/2), exp(-9/2), 0 };
 
 void fit_L1405_width(){
   init();
   TCanvas *c1=new TCanvas("c1", "c1");
-  const TString dirName="KN";
+  const TString dirName="KzeroN";
   
   for( int i=0; i<sizeof(range)/sizeof(range[0]); i++ ){
     fit(dirName, range[i]);    

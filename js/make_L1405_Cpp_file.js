@@ -1,11 +1,11 @@
 const fs=require('fs');
 
-// makeParamCodes(JSON.parse(fs.readFileSync('./js/L1405_width_Kmp.js')), 'width_Kmp_');
-// makeParamCodes(JSON.parse(fs.readFileSync('./js/L1405_width_KN.js')), 'width_KN_');
-// makeParamCodes(JSON.parse(fs.readFileSync('./js/L1405_width_KzeroN.js')), 'width_KzeroN_');
+makeParamCodes(JSON.parse(fs.readFileSync('./js/L1405_width_Kmp.js')), 'width_Kmp_');
+makeParamCodes(JSON.parse(fs.readFileSync('./js/L1405_width_KN.js')), 'width_KN_');
+makeParamCodes(JSON.parse(fs.readFileSync('./js/L1405_width_KzeroN.js')), 'width_KzeroN_');
 
 // makeParamCodes(JSON.parse(fs.readFileSync('./js/L1405_pole_Kmp.js')), 'pole_Kmp_');
-makeParamCodes(JSON.parse(fs.readFileSync('./js/L1405_pole_KN.js')), 'pole_KN_');
+// makeParamCodes(JSON.parse(fs.readFileSync('./js/L1405_pole_KN.js')), 'pole_KN_');
 // makeParamCodes(JSON.parse(fs.readFileSync('./js/L1405_pole_KzeroN.js')), 'pole_KzeroN_');
 
 function makeParamCodes(obj, header){

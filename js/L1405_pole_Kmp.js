@@ -1,5 +1,25 @@
 [
     {
+	"cutHeight" : 0.882497,
+	"chi2" : 26.0566,
+	"NDF" : 26,
+	"fitLower" : 1.4177,
+	"fitUpper" : 1.4235,
+	"lower" : 1.41643,
+	"upper" : 1.42573,
+	"mean" : 1.41996
+    },
+    {
+	"cutHeight" : 0.75484,
+	"chi2" : 31.8039,
+	"NDF" : 43,
+	"fitLower" : 1.4155,
+	"fitUpper" : 1.4247,
+	"lower" : 1.41539,
+	"upper" : 1.4255,
+	"mean" : 1.42037
+    },
+    {
 	"cutHeight" : 0.606531, 
 	"chi2" : 48.284, 
 	"NDF" : 64, 
