@@ -12,4 +12,6 @@
 
 #include "constant.hh"
 
+#include "TMath.h"
+
 #endif

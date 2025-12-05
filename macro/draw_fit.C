@@ -1,4 +1,4 @@
-#include "macro/init.C"
+#include "./init.C"
 
 const TString infileroot="~/spectra_fit.root";
 

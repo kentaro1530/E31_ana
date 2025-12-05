@@ -81,7 +81,8 @@ void setTopMargin(double val){ gStyle-> SetPadTopMargin(val); }
 void setBottomMargin(double val){ gStyle-> SetPadBottomMargin(val); }
 
 TH1F* setOpts(TH1F* obj, int colorID=kBlack){
-  //  cout<<obj<<endl;
+  cout<<obj<<endl;
+  cout<<colorID<<std::endl;
   obj-> SetLineColor(colorID);
   obj->SetStats(0);
   obj->SetTitle("");

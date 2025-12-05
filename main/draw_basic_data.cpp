@@ -54,7 +54,7 @@ int main(){
   TGraph *gra_d_wave_func=new TGraph(mom.size(), &mom[0], &wave_func[0]);
   gra_d_wave_func-> Write("d_wave_func");
   TGraph *gra_d_wave_func_pp=new TGraph(mom.size(), &mom[0], &wave_func_pp[0]);
-  gra_d_wave_func-> Write("d_wave_func_pp");
+  gra_d_wave_func_pp-> Write("d_wave_func_pp");
 
   TGraph *gra_d_wave_func_knucl=new TGraph(mom.size(), &mom[0], &wave_func_knucl[0]);
   gra_d_wave_func_knucl-> Write("d_wave_func_knucl");

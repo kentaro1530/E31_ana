@@ -1,11 +1,23 @@
-#include "macro/init.C"
+#include "../init.C"
+
+void printParam(TFile*f, TString dirName, float &pole, float &width);
+void draw(TFile *f, TString dirName);
+TGraph* setOpts(TGraph* gra);
+bool drawPole(TFile *f, TString dirName, float pole);
+bool drawWidth(TFile *f, TString dirName, float width);
+bool drawPole2(TFile *f, TString dirName, float pole, double range=2.0);
+bool drawWidth2(TFile *f, TString dirName, float width, double range=2.0);
+void drawScatAmp(TFile *f, TString dirName);
+TGraph* scale(double scale, TGraph* gra);
+TGraphAsymmErrors* scaleAsymm(double scale, TGraphAsymmErrors* gra);
 
 void draw_fit_scat_amp_I0(){
   init();
 
   TFile *f=new TFile("~/spectra_fit_scat_amp_I0.root");
   float pole, width;
-
+  TCanvas *c1 = new TCanvas("c1", "c1");
+  
   /*********************/
   /*** K-p Threshold ***/
   /*********************/
@@ -66,8 +78,8 @@ void draw_fit_scat_amp_I0(){
   // c1-> Print("pic/Dron/fit_pole_gaus_KN_fit2Gaus_r15.eps");
   // drawPole2(f, "KN", pole, 1.75);
   // c1-> Print("pic/Dron/fit_pole_gaus_KN_fit2Gaus_r175.eps");
-  // drawPole2(f, "KN", pole, 2);
-  // c1-> Print("pic/Dron/fit_pole_gaus_KN_fit2Gaus_r2.eps");
+  drawPole2(f, "KN", pole, 2);
+  c1-> Print("pic/Dron/fit_pole_gaus_KN_fit2Gaus_r2.eps");
   // drawPole2(f, "KN", pole, 2.25);
   // c1-> Print("pic/Dron/fit_pole_gaus_KN_fit2Gaus_r225.eps");
   // drawPole2(f, "KN", pole, 2.5);
@@ -138,8 +150,8 @@ void draw_fit_scat_amp_I0(){
 
 bool drawPole(TFile *f, TString dirName, float pole){
   TDirectory* dir=(TDirectory*)f->Get(dirName);
-
-  TH1F *h1=set((TH1F*)dir-> Get("Pole_dist_gauss"));
+  
+  TH1F *h1=setOpts((TH1F*)dir-> Get("Pole_dist_gauss"));
   h1-> GetXaxis()-> SetTitle("M_{#pi #Sigma} [GeV]");
   h1-> GetYaxis()-> SetTitle("Count");
   h1-> Draw();
@@ -214,13 +226,15 @@ bool drawPole(TFile *f, TString dirName, float pole){
   std::cout<<"Pole (gaus)     : "<<mean+sigma<<", "<<mean<<", "<<mean-sigma<<std::endl;
   std::cout<<"Pole (2-gaus)   : "<<mean2+sigma_h<<", "<<mean2<<", "<<mean-sigma_l<<std::endl;
   std::cout<<"Pole (RMS/mean) : "<<h1->GetMean()+h1->GetRMS()<<", "<<h1->GetMean()<<", "<<h1->GetMean()-h1-> GetRMS()<<std::endl;
+
+  return true;
 }
 
 bool drawWidth(TFile *f, TString dirName, float width){
   //  std::cout<<"Width = "<<width<<std::endl;
   TDirectory* dir=(TDirectory*)f->Get(dirName);
 
-  TH1F *h1=set((TH1F*)dir-> Get("Width_dist_gauss"));
+  TH1F *h1=setOpts((TH1F*)dir-> Get("Width_dist_gauss"));
   h1-> GetXaxis()-> SetRangeUser(-0.1, 0.0);
   h1-> GetXaxis()-> SetTitle("M_{#pi #Sigma} [GeV]");
   h1-> GetYaxis()-> SetTitle("Count");
@@ -296,12 +310,13 @@ bool drawWidth(TFile *f, TString dirName, float width){
   // std::cout<<"Width (gaus)     : "<<mean+sigma<<", "<<mean<<", "<<mean-sigma<<std::endl;
   // std::cout<<"Width (2-gaus)   : "<<mean2+sigma_h<<", "<<mean2<<", "<<mean-sigma_l<<std::endl;
   // std::cout<<"Width (RMS/mean) : "<<h1->GetMean()+h1->GetRMS()<<", "<<h1->GetMean()<<", "<<h1->GetMean()-h1-> GetRMS()<<std::endl;
+  return true;
 }
 
 bool drawWidth2(TFile *f, TString dirName, float width, double range=2.0){
   TDirectory* dir=(TDirectory*)f->Get(dirName);
 
-  TH1F *h1=set((TH1F*)dir-> Get("Width_dist_gauss"));
+  TH1F *h1=setOpts((TH1F*)dir-> Get("Width_dist_gauss"));
   h1-> GetXaxis()-> SetRangeUser(-0.1, 0.0);
   h1-> GetXaxis()-> SetTitle("M_{#pi #Sigma} [GeV]");
   h1-> GetYaxis()-> SetTitle("Count");
@@ -375,7 +390,7 @@ bool drawWidth2(TFile *f, TString dirName, float width, double range=2.0){
 bool drawPole2(TFile *f, TString dirName, float pole, double range=2.0){
   TDirectory* dir=(TDirectory*)f->Get(dirName);
 
-  TH1F *h1=set((TH1F*)dir-> Get("Pole_dist_gauss"));
+  TH1F *h1=setOpts((TH1F*)dir-> Get("Pole_dist_gauss"));
   h1-> GetXaxis()-> SetRangeUser(-0.1, 0.0);
   h1-> GetXaxis()-> SetTitle("M_{#pi #Sigma} [GeV]");
   h1-> GetYaxis()-> SetTitle("Count");
@@ -446,11 +461,10 @@ bool drawPole2(TFile *f, TString dirName, float pole, double range=2.0){
   return true;
 }
 
-
 void printParam(TFile*f, TString dirName, float &pole, float &width){
   TDirectory* dir=(TDirectory*)f->Get(dirName);
   TNtuple *tup=(TNtuple*)dir-> Get("fit_params");
-  float chi2, ndf, scale, scale_err, A_I0_re, A_I0_re_err, A_I0_im, A_I0_im_err, R_I0_re, R_I0_re_err, R_I0_im, R_I0_im_err, pole, width;
+  float chi2, ndf, scale, scale_err, A_I0_re, A_I0_re_err, A_I0_im, A_I0_im_err, R_I0_re, R_I0_re_err, R_I0_im, R_I0_im_err;
   tup-> SetBranchAddress("chi2", &chi2);
   tup-> SetBranchAddress("NDF", &ndf);
   tup-> SetBranchAddress("scale", &scale);
@@ -474,6 +488,20 @@ void printParam(TFile*f, TString dirName, float &pole, float &width){
   // std::cout<<A_I0_im<<" +- "<<A_I0_im_err<<std::endl;
   // std::cout<<R_I0_re<<" +- "<<R_I0_re_err<<std::endl;
   // std::cout<<R_I0_im<<" +- "<<R_I0_im_err<<std::endl;
+}
+
+TH1F* setOpts(TH1F* h1){
+  h1->SetStats(0);
+  h1-> SetTitle("");
+  h1->GetXaxis()->SetLabelSize(0.05);
+  h1->GetXaxis()->SetTitleSize(0.06);
+  h1->GetXaxis()->CenterTitle();
+
+  h1->GetYaxis()->SetLabelSize(0.05);
+  h1->GetYaxis()->SetTitleSize(0.06);
+  h1->GetYaxis()->CenterTitle();
+
+  return h1;
 }
 
 TGraph* setOpts(TGraph* gra){
@@ -564,8 +592,8 @@ TGraph* scale(double scale, TGraph* gra){
     x.push_back(tmpx);
     y.push_back(scale*tmpy);
   }
-  TGraph* gra= new TGraph(x.size(), &x[0], &y[0]);
-  return gra;
+  TGraph* gra2= new TGraph(x.size(), &x[0], &y[0]);
+  return gra2;
 }
 
 TGraphAsymmErrors* scaleAsymm(double scale, TGraphAsymmErrors* gra){
