@@ -1,12 +1,6 @@
-#include "common.hh"
 #include "W_to_mom.hh"
 
-const double N_theta = 10;
-const double dtheta = TMath::Pi()/N_theta;
-const double max_mom = 0.5;
-const double N_mom = 10;
-const double dmom = max_mom/N_mom;
-const double offshell_mass = nMass;
+#include "kd_reac/config.hh"
 
 int main(){
   std::cout<<"K- d reaction Calculation START"<<std::endl;
@@ -32,15 +26,15 @@ int main(){
     for( double mom = 0.0; mom<=max_mom; mom += dmom ){
       TVector3 fermi_mom = TVector3(mom*sin(theta), 0.0, mom*cos(theta));
       TLorentzVector onshell_lmom, offshell_lmom;
-      onshell_lmom.SetVectM(fermi_mom, offshell_mass);
+      onshell_lmom.SetVectM(fermi_mom, onshell_mass);
       offshell_lmom = d_lmom - onshell_lmom;
 
       TLorentzVector Kbar_lmom = beam_lmom + offshell_lmom - n_lmom;
       Kbar_lmom.Boost(lab_to_KN);
       onshell_lmom.Boost(lab_to_KN);
 
-      std::cout<<Kbar_lmom.X()<<", "<<Kbar_lmom.Y()<<", "<<Kbar_lmom.Z()<<":  m = "<<Kbar_lmom.M()<<std::endl;
-      std::cout<<onshell_lmom.X()<<", "<<onshell_lmom.Y()<<", "<<onshell_lmom.Z()<<":  m = "<<onshell_lmom.M()<<std::endl;
+      std::cout<<"("<<Kbar_lmom.X()<<", "<<Kbar_lmom.Y()<<", "<<Kbar_lmom.Z()<<") :  m = "<<Kbar_lmom.M()<<std::endl;
+      std::cout<<"("<<onshell_lmom.X()<<", "<<onshell_lmom.Y()<<", "<<onshell_lmom.Z()<<") :  m = "<<onshell_lmom.M()<<std::endl;
     }
   }
 

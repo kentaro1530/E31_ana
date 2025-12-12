@@ -33,14 +33,14 @@ void fit(TString dirName, double threshold){
   if( threshold>0 ) serachFWHM(h1, bin_l, bin_h, threshold);
   else bin_l=1.35, bin_h=1.5;
 
-  TF1 *func=(TF1*)gROOT->FindObject("double_gaus");
-  func-> SetParameter(0, h1->GetMaximum());
-  func-> SetParameter(1, h1->GetBinCenter(h1->GetMaximumBin()));
-  func-> SetParameter(2, 0.3*h1->GetRMS());
-  func-> SetParameter(3, 0.3*h1->GetRMS());
+  // TF1 *func=(TF1*)gROOT->FindObject("gaus");
+  // func-> SetParameter(0, h1->GetMaximum());
+  // func-> SetParameter(1, h1->GetBinCenter(h1->GetMaximumBin()));
+  // func-> SetParameter(2, 0.3*h1->GetRMS());
+  // func-> SetParameter(3, 0.3*h1->GetRMS());
   
   h1-> Draw();
-  h1-> Fit("double_gaus", "", "", bin_l, bin_h);
+  h1-> Fit("gaus", "q", "", bin_l, bin_h);
   TBox box;
   box.SetFillStyle(3002);
   box.SetFillColor(kGray);
@@ -55,13 +55,13 @@ void fit(TString dirName, double threshold){
 
   std::cout<<"{"<<std::endl;
   std::cout<<"\"cutHeight\" : "<<threshold<<", "<<std::endl;
-  std::cout<<"\"chi2\" : "<<func->GetChisquare()<<", "<<std::endl;
-  std::cout<<"\"NDF\" : "<<func->GetNDF()<<", "<<std::endl;
+  std::cout<<"\"chi2\" : "<<h1->GetFunction("gaus")->GetChisquare()<<", "<<std::endl;
+  std::cout<<"\"NDF\" : "<<h1->GetFunction("gaus")->GetNDF()<<", "<<std::endl;
   std::cout<<"\"fitLower\" : "<<bin_l<<", "<<std::endl;
   std::cout<<"\"fitUpper\" : "<<bin_h<<", "<<std::endl;
-  std::cout<<"\"lower\" : "<<func->GetParameter(1)-func->GetParameter(2)<<", "<<std::endl;
-  std::cout<<"\"upper\" : "<<func->GetParameter(1)+func->GetParameter(3)<<", "<<std::endl;
-  std::cout<<"\"mean\" : "<<func->GetParameter(1)<<std::endl;
+  std::cout<<"\"lower\" : "<<h1->GetFunction("gaus")->GetParameter(1)-h1->GetFunction("gaus")->GetParameter(2)<<", "<<std::endl;
+  std::cout<<"\"upper\" : "<<h1->GetFunction("gaus")->GetParameter(1)+h1->GetFunction("gaus")->GetParameter(2)<<", "<<std::endl;
+  std::cout<<"\"mean\" : "<<h1->GetFunction("gaus")->GetParameter(1)<<std::endl;
   std::cout<<"},"<<std::endl;
 }
 
