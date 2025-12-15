@@ -1,3 +1,4 @@
+#pragma once
 #include "common.hh"
 
 const double N_theta = 10;
