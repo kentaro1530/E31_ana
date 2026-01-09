@@ -12,3 +12,4 @@ const double onshell_mass = nMass;
 const double Kbar_mass = kpMass;
 
 const int MAX_ITERATION = 50;
+const double TOL = 1.0e-12;
