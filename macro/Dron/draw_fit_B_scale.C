@@ -1,8 +1,13 @@
-#include "macro/init.C"
-#include "macro/make_gra.C"
+#include "../init.C"
+#include "../make_gra.C"
 
 const TString infileroot="~/spectra_fit.root";
 const TString outfile="~/fit_model_B.root";
+
+void printParam(TFile *f, TString dirname);
+void draw(TFile *f, TString dirname);
+TLegend *makeLegend(double x0=0.15, double y0=0.5, double x1=0.5, double y1=0.9);
+TGraphErrors* setStyle(TGraphErrors* gra);
 
 void draw_fit_B_scale(){
   init();
@@ -40,14 +45,15 @@ TLegend *makeLegend(double x0=0.15, double y0=0.5, double x1=0.5, double y1=0.9)
 
 void draw(TFile *f, TString dirname){
   const double kpThre=kpMass+pMass;
+  TCanvas *c1 = new TCanvas("c1", "c1");
   TLine line;
   line.SetLineColor(3);
   line.SetLineWidth(3);
-  TGraphErrors *gra_pimSp_CS=set((TGraphErrors*)f->Get("gra_pimSp_CS"));
-  TGraphErrors *gra_pipSm_CS=set((TGraphErrors*)f->Get("gra_pipSm_CS"));
-  TGraphErrors *gra_pimS0_CS=set((TGraphErrors*)f->Get("gra_pimS0_CS"));
-  TGraphErrors *gra_data_I0=set(make_data_I0());
-  TGraphErrors *gra_sub=set(make_data_sub());
+  TGraphErrors *gra_pimSp_CS=setStyle((TGraphErrors*)f->Get("gra_pimSp_CS"));
+  TGraphErrors *gra_pipSm_CS=setStyle((TGraphErrors*)f->Get("gra_pipSm_CS"));
+  TGraphErrors *gra_pimS0_CS=setStyle((TGraphErrors*)f->Get("gra_pimS0_CS"));
+  TGraphErrors *gra_data_I0=setStyle(make_data_I0());
+  TGraphErrors *gra_sub=setStyle(make_data_sub());
 
   TDirectory *dir=(TDirectory*)f-> Get(dirname);
   TNtuple *tup=(TNtuple*)dir->Get("fit_params");
@@ -141,7 +147,7 @@ void draw(TFile *f, TString dirname){
   c1->Print(Form("pic/Dron/%s/pimS0_fit.eps", dirname.Data()));
 }
 
-TGraphErrors* set(TGraphErrors* gra){
+TGraphErrors* setStyle(TGraphErrors* gra){
   gra-> GetXaxis()-> SetRangeUser(1.35, 1.5);
 
   gra-> GetXaxis()-> CenterTitle();
