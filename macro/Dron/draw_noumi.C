@@ -21,7 +21,14 @@ void draw_noumi(){
   TGraphErrors* I0=setOpt(make_data_I0());
   pi0S0_CS-> SetLineWidth(2);
   pi0S0_CS-> GetYaxis()-> SetRangeUser(0, 15);
-
+  for( int i =0; i<I0-> GetN(); i++ ){
+    double x, y;
+    I0-> GetPoint(i, x, y);
+    double yerr = I0->GetErrorY(i);
+    std::cout<<i<<"  "<<x<<"  "<<y<<"  "<<yerr<<std::endl;
+  }
+  return;
+  
   I0-> Draw("AP");
   pi0S0_CS-> Draw("P");
   pi0S0_CS-> SetLineColor(kBlue);

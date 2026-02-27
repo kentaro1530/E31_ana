@@ -85,34 +85,34 @@ int main(){
   //   std::vector<TGraph*> gras=make_spectra_A(par);
   // }
 
-  {
-    TDirectory *dir=(TDirectory*)of-> mkdir("fit_model_B");
-    dir-> cd();
-    TMinuit* minuit=makeMinuit();
-    minuit-> SetFCN(fcn_B);
-    double par[3], err[3];
-    fit(minuit, par, err);
-    double chi2; int ndf;
-    get_chi2_ndf_B(chi2, ndf, par);
-    ndf -= minuit-> GetNumFreePars(); 
-    save(chi2, ndf, par, err);
-    std::vector<TGraph*> gras=make_spectra_B(par);
-  }
-
   // {
-  //   TDirectory *dir=(TDirectory*)of-> mkdir("fit_model_A_fix_Phi");
+  //   TDirectory *dir=(TDirectory*)of-> mkdir("fit_model_B");
   //   dir-> cd();
   //   TMinuit* minuit=makeMinuit();
-  //   minuit-> SetFCN(fcn_A);
-  //   minuit-> FixParameter(2);
+  //   minuit-> SetFCN(fcn_B);
   //   double par[3], err[3];
   //   fit(minuit, par, err);
   //   double chi2; int ndf;
-  //   get_chi2_ndf_A(chi2, ndf, par);
+  //   get_chi2_ndf_B(chi2, ndf, par);
   //   ndf -= minuit-> GetNumFreePars(); 
   //   save(chi2, ndf, par, err);
-  //   std::vector<TGraph*> gras=make_spectra_A(par);
+  //   std::vector<TGraph*> gras=make_spectra_B(par);
   // }
+
+  {
+    TDirectory *dir=(TDirectory*)of-> mkdir("fit_model_A_fix_Phi");
+    dir-> cd();
+    TMinuit* minuit=makeMinuit();
+    minuit-> SetFCN(fcn_A);
+    minuit-> FixParameter(2);
+    double par[3], err[3];
+    fit(minuit, par, err);
+    double chi2; int ndf;
+    get_chi2_ndf_A(chi2, ndf, par);
+    ndf -= minuit-> GetNumFreePars(); 
+    save(chi2, ndf, par, err);
+    std::vector<TGraph*> gras=make_spectra_A(par);
+  }
 
   {
     TDirectory *dir=(TDirectory*)of-> mkdir("fit_model_B_fix_Phi");

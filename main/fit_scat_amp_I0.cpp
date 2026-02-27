@@ -27,7 +27,14 @@ int main(){
   TGraphErrors *data=(TGraphErrors*)f->Get("");
   responseFunc=(TGraph*)f->Get("responseFunc");
   gra_data=root_util::set_opts((TGraphErrors*)f->Get("I0_CS"));
-
+  for( int i=0; i<gra_data->GetN(); i++ ){
+    double x, y;
+    gra_data-> GetPoint(i, x, y);
+    double erry = gra_data->GetErrorY(i);
+    std::cout<<i<<"  "<<x<<"  "<<y<<"  "<<erry<<std::endl;
+  }
+  return 0;
+  
   TFile *of=new TFile(outrootfile, "recreate");
   gra_data-> Write("I0_CS");
   KN_piS_T.setA(std::complex<double>(0.60, 0.50));
@@ -141,6 +148,7 @@ void fit(){
   }
   get_chi2_ndf(chi2, ndf, par);
   ndf-=5;
+  std::cout<<"chi2/NDF = "<<chi2<<"  "<<ndf<<" = "<<chi2/ndf<<std::endl;
   save(chi2, ndf, par, err);
 
   //  for( int i=0; i<5; i++ ) init_par[i]=par[i];
