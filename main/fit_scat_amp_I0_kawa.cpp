@@ -28,7 +28,7 @@ int main(){
   responseFunc=(TGraph*)f->Get("responseFunc");
   gra_data=root_util::set_opts((TGraphErrors*)f->Get("I0_CS"));
   
-  TFile *of=new TFile(outrootfile, "recreate");
+  TFile *of=new TFile(outrootfile);
   gra_data-> Write("I0_CS");
   KN_piS_T.setA(std::complex<double>(0.60, 0.50));
   KN_piS_T.setR(std::complex<double>(0, 0));
