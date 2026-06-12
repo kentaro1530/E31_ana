@@ -18,7 +18,6 @@ double getKbeamNum(int run=-1){
   std::cout<<"error"<<std::endl;
 }
 
-
 void Kf_reduction(){
   init();
 

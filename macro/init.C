@@ -11,6 +11,8 @@
 #include <TBox.h>
 #include <TCanvas.h>
 
+const char TITLE_CS[]="#frac{d^{2}#sigma}{d#Omega dm} #mub/sr MeV";
+
 const double piMass = 0.13957;
 const double pMass = 0.938272;
 const double nMass = 0.939565;
