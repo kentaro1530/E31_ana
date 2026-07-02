@@ -13,6 +13,9 @@
 
 const char TITLE_CS[]="#frac{d^{2}#sigma}{d#Omega dm} #mub/sr MeV";
 
+const double TwoPi   = TMath::Pi()*2.0;
+const double Deg2Rad = TMath::Pi()/180.;
+
 const double piMass = 0.13957;
 const double pMass = 0.938272;
 const double nMass = 0.939565;
