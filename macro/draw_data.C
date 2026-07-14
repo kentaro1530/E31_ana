@@ -1,10 +1,11 @@
-#include "macro/init.C"
+#include "./init.C"
 
 const TString infileroot="~/spectra.root";
 
 void draw_data(){
   init();
-
+  TCanvas *c1 = new TCanvas();
+  
   TFile *f=new TFile(infileroot);
   TGraphErrors *gra_pimSp_data=(TGraphErrors*)f->Get("pimSp_CS0");
   TGraphErrors *gra_pipSm_data=(TGraphErrors*)f->Get("pipSm_CS0");
