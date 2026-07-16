@@ -67,7 +67,7 @@ void save(double chi2, int ndf, double par[5], double err[5]){
 
   std::vector<double> mass, T_I1_KN_KN_re, T_I1_KN_KN_im, T_I1_KN_piS_re, T_I1_KN_piS_im, T_I1_KN_KN_abs2, T_I1_KN_piS_abs2, fit_pimS0_wReso;
   for( double m=1.3; m<1.6; m+=0.001 ){
-    fit_pimS0_wReso.push_back(reso::conv_kp(m, mass0, fit_pimS0));
+    fit_pimS0_wReso.push_back(reso::conv_kn(m, mass0, fit_pimS0));
     mass.push_back(m);
     T_I1_KN_KN_re.push_back(KN_piS_T.amp22(m).real());
     T_I1_KN_KN_im.push_back(KN_piS_T.amp22(m).imag());
@@ -170,7 +170,7 @@ void get_chi2_ndf(Double_t &chi2, Int_t &ndf, const Double_t *par){
     double x, y;
     gra_data-> GetPoint(i, x, y);
     double err=gra_data->GetErrorY(i);
-    double calc_y=reso::conv_kp(x, mass, pimS0_y);
+    double calc_y=reso::conv_kn(x, mass, pimS0_y);
 
     if( x<1.35 || 1.5<x ) continue;
     if( err<1.0e-8 ) continue;

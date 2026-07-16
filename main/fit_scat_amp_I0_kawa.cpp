@@ -7,14 +7,14 @@
 #include "util.hh"
 
 const TString inrootfile="~/spectra.root";
-const TString outrootfile="~/spectra_fit_scat_amp_I0.root";
+const TString outrootfile="~/spectra_fit_scat_amp_I0_pi0Sigma0.root";
 
 const int PRINT_LEVEL=-1;
 
 TransMatrix KN_piS_T(piMass, sigmaMass, kMass, NMass);
 TGraph *responseFunc;
 TGraph *gra_data;
-double init_par[5]  = { 0.04, -1.00, 0.80, -0.2, -0.40 }; 
+double init_par[5]  = { 0.04, -1.30, 0.80, -0.2, -0.40 }; 
 
 void fit();
 void fcn(Int_t &npar, Double_t *gin, Double_t &chi2, Double_t *par, Int_t iflag);
@@ -26,9 +26,9 @@ int main(){
   TFile *f=new TFile(inrootfile);
   TGraphErrors *data=(TGraphErrors*)f->Get("");
   responseFunc=(TGraph*)f->Get("responseFunc");
-  gra_data=root_util::set_opts((TGraphErrors*)f->Get("I0_CS"));
+  gra_data=root_util::set_opts((TGraphErrors*)f->Get("pi0S0_CS"));
   
-  TFile *of=new TFile(outrootfile);
+  TFile *of=new TFile(outrootfile, "recreate");
   gra_data-> Write("I0_CS");
   KN_piS_T.setA(std::complex<double>(0.60, 0.50));
   KN_piS_T.setR(std::complex<double>(0, 0));
@@ -115,7 +115,7 @@ void fit(){
   double err[5];
   for( int i=0; i<5; i++ ){
     par[i]=init_par[i];
-    err[i]=0.01*fabs(init_par[i]);
+    err[i]=0.0001*fabs(init_par[i]);
   }
   int flag=0;
   for( int i=0; i<5; i++ ){
@@ -130,6 +130,7 @@ void fit(){
   minuit-> mnexcm("SIMPLEX", arglist, 1, ierflag);
   minuit-> mnexcm("MIGRAD", arglist, 1, ierflag);
   minuit-> mnexcm("HESSE", arglist, 1, ierflag);
+  //  minuit-> mnexcm("MINOS", arglist, 1, ierflag);
 
   double chi2;
   int ndf;
@@ -170,7 +171,7 @@ void get_chi2_ndf(Double_t &chi2, Int_t &ndf, const Double_t *par){
     double x, y;
     gra_data-> GetPoint(i, x, y);
     double err=gra_data->GetErrorY(i);
-    double calc_y=reso::conv_kp(x, mass, pimS0_y);
+    double calc_y=reso::conv_kn(x, mass, pimS0_y);
 
     if( x<1.35 || 1.5<x ) continue;
     if( err<1.0e-8 ) continue;

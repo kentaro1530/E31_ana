@@ -1,4 +1,5 @@
 /bin/
 /main/obj/
 /src/obj/
+/pic/
 *.root
