@@ -44,6 +44,7 @@ void drawChargeCS(){
   //  TGraphErrors *gra_pimSp2 = setOpts((TGraphErrors*)f->Get("pimSp_CS2"), kRed);
   std::vector<TGraphErrors*> gra_pimSp = readFile(inputText_pimSp, kRed);
   gra_pimSp[0]-> GetXaxis()-> SetTitle("d(K^{-}, n)\"#pi^{#mp}#Sigma^{#pm}\" [GeV/c^{2}]");
+  gra_pimSp[0]-> GetYaxis()-> SetTitle(TITLE_CS);
   gra_pimSp[0]-> GetXaxis()-> SetRangeUser(1.35, 1.5);
   gra_pimSp[0]-> GetYaxis()-> SetRangeUser(0, 35);
   gra_pimSp[1]-> SetFillStyle(0);
