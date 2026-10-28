@@ -67,7 +67,7 @@ int main(){
   
   TFile *f2 = new TFile(inrootfile2);
 
-  TDirectory *dir = (TDirectory*)f2-> Get("Kmp");
+  TDirectory *dir = (TDirectory*)f2-> Get("KN");
   TNtuple *tup = (TNtuple*)dir-> Get("fit_params");
 
   Float_t scale, A_re, A_im, R_re, R_im;

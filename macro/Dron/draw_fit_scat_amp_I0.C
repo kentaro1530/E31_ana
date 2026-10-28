@@ -71,7 +71,7 @@ void draw_fit_scat_amp_I0(){
   // c1-> Print("pic/Dron/fit_pole_gaus_KN.eps");
   // drawWidth(f, "KN", width);
   // c1-> Print("pic/Dron/fit_width_gaus_KN.eps");
-  // drawScatAmp(f, "KN");
+  drawScatAmp(f, "KN");
   // c1-> Print("pic/Dron/fit_scat_amp_I0_KN.eps");
 
   // drawPole2(f, "KN", pole, 1.5);

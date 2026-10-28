@@ -52,4 +52,18 @@ void make_Miyagawa_spec(){
   gra_pipSm_green_conv-> Write("pipSm_miyagawa_green_conv");
   gra_pimS0_green_conv-> Write("pimS0_miyagawa_green_conv");
   gra_pi0S0_green_conv-> Write("pi0S0_miyagawa_green_conv");
+
+  std::cout<<"aaa"<<std::endl;
+  std::cout<<gra_pimSp_green_conv->GetN()<<std::endl;
+  std::cout<<gra_pipSm_green_conv->GetN()<<std::endl;
+
+  std::cout<<gra_pimSp_red_conv->GetN()<<std::endl;
+  std::cout<<gra_pipSm_red_conv->GetN()<<std::endl;
+
+  std::cout<<gra_pimSp_blue_conv->GetN()<<std::endl;
+  std::cout<<gra_pipSm_blue_conv->GetN()<<std::endl;
+  std::cout<<"bbb"<<std::endl;
+  exit(0);
+
 }
+

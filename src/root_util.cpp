@@ -14,6 +14,7 @@ TGraph* root_util::set_opts(TGraph* gra){
   gra-> GetYaxis()-> SetTitle("#frac{d^{2}#sigma}{d#Omega dm} #mub/sr MeV");
 
   gra-> SetLineWidth(2);
+  //  std::cout<<gra<<std::endl;
   gra-> SetTitle("");
 
   return gra;

@@ -7,14 +7,14 @@
 #include "util.hh"
 
 const TString inrootfile="~/spectra.root";
-const TString outrootfile="~/spectra_fit_scat_amp_I0_pi0Sigma0.root";
+const TString outrootfile="~/spectra_fit_scat_amp_I0_kawa.root";
 
 const int PRINT_LEVEL=-1;
 
 TransMatrix KN_piS_T(piMass, sigmaMass, kMass, NMass);
 TGraph *responseFunc;
 TGraph *gra_data;
-double init_par[5]  = { 0.04, -1.30, 0.80, -0.2, -0.40 }; 
+double init_par[5]  = { 0.03, -1.30, 0.80, -0.4, -0.40 }; 
 
 void fit();
 void fcn(Int_t &npar, Double_t *gin, Double_t &chi2, Double_t *par, Int_t iflag);
@@ -67,7 +67,7 @@ void save(double chi2, int ndf, double par[5], double err[5]){
 
   std::vector<double> mass, T_I1_KN_KN_re, T_I1_KN_KN_im, T_I1_KN_piS_re, T_I1_KN_piS_im, T_I1_KN_KN_abs2, T_I1_KN_piS_abs2, fit_pimS0_wReso;
   for( double m=1.3; m<1.6; m+=0.001 ){
-    fit_pimS0_wReso.push_back(reso::conv_kp(m, mass0, fit_pimS0));
+    fit_pimS0_wReso.push_back(reso::conv_kn(m, mass0, fit_pimS0));
     mass.push_back(m);
     T_I1_KN_KN_re.push_back(KN_piS_T.amp22(m).real());
     T_I1_KN_KN_im.push_back(KN_piS_T.amp22(m).imag());
@@ -115,11 +115,11 @@ void fit(){
   double err[5];
   for( int i=0; i<5; i++ ){
     par[i]=init_par[i];
-    err[i]=0.0001*fabs(init_par[i]);
+    err[i]=0.01*fabs(init_par[i]);
   }
   int flag=0;
   for( int i=0; i<5; i++ ){
-    std::cout<<"Set Prameter "<<i<<" "<<name[i]<<"\t"<<par[i]<<"\t"<<err[i]<<std::endl;
+    //    std::cout<<"Set Prameter "<<i<<" "<<name[i]<<"\t"<<par[i]<<"\t"<<err[i]<<std::endl;
     minuit->mnparm(i, name[i], par[i], err[i], -9999, 9999, flag);
   }
   Double_t arglist[20]; arglist[0]=3000; arglist[1]=1;
@@ -130,7 +130,6 @@ void fit(){
   minuit-> mnexcm("SIMPLEX", arglist, 1, ierflag);
   minuit-> mnexcm("MIGRAD", arglist, 1, ierflag);
   minuit-> mnexcm("HESSE", arglist, 1, ierflag);
-  //  minuit-> mnexcm("MINOS", arglist, 1, ierflag);
 
   double chi2;
   int ndf;

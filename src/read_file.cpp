@@ -22,6 +22,7 @@ TGraph* read_file::makeGraph(const std::string &file_name){
 TGraph* read_file::makeGraph2(const std::string &file_name){
   std::vector<std::vector<double> > xy=read_xy2(file_name);
   TGraph *gra=new TGraph(xy[0].size(), &xy[0][0], &xy[1][0]);
+  std::cout<<gra<<std::endl;
   return root_util::set_opts(gra);
 }
 

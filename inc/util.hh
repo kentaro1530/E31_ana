@@ -12,7 +12,7 @@ namespace util{
 
   namespace TMatrix{
     std::vector<TGraphAsymmErrors*> make_amp12_TGraphErrors(const TransMatrix &tmat, const double &A_re_err, const double &A_im_err, const double &R_re_err, const double &R_im_err, 
-							    const double &min=1.35, const double &max=1.60);
+							    const double &min=1.3495, const double &max=1.6005);
 
     bool getPoleWidth(const TransMatrix &tmat, const double &A_re_err, const double &A_im_err, const double &R_re_err, const double &R_im_err,
 		      double &pole, double &pole_min, double &pole_max, double &width, double &width_min, double &width_max);

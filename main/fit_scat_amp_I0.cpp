@@ -119,7 +119,7 @@ void fit(){
   }
   int flag=0;
   for( int i=0; i<5; i++ ){
-    std::cout<<"Set Prameter "<<i<<" "<<name[i]<<"\t"<<par[i]<<"\t"<<err[i]<<std::endl;
+    //    std::cout<<"Set Prameter "<<i<<" "<<name[i]<<"\t"<<par[i]<<"\t"<<err[i]<<std::endl;
     minuit->mnparm(i, name[i], par[i], err[i], -9999, 9999, flag);
   }
   Double_t arglist[20]; arglist[0]=3000; arglist[1]=1;
